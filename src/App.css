@@ -1,22 +1,25 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
-.App-logo {
-  height: 40vmin;
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  margin: 0;
+  padding: 0;
+}
+.main-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #09d3ac;
+button {
+  border-radius: 7px;
+  height: 50px;
+  border: none;
+  font-size: 16px;
+}
+.red-button {
+  background: #ed6b5a;
+}
+.green-button {
+  background: #3ad886;
 }

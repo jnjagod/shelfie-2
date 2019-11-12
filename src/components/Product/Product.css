@@ -1,0 +1,29 @@
+.product-box {
+  display: flex;
+  width: 80%;
+  background: #d34735;
+  margin: 15px 0 0 80px;
+  border-radius: 7px;
+  padding: 15px;;
+}
+.product-img {
+  width: 320px;
+  height: 200px;
+}
+.product-sub-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 10px;
+  font-size: 18px;
+}
+.sub-button-box {
+  display: flex;
+  justify-content: space-between;
+}
+.delet {
+  margin-right: 120px;
+}
+.edit {
+  width: 60px;
+}

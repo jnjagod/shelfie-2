@@ -1,0 +1,26 @@
+.form-box {
+  background: #3ad886;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.form-container {
+  padding: 50px;
+}
+.img-preview {
+  border: 1px solid #ab2a19;
+  width: 300px;
+  height: 200px;
+  margin: 5px 50px;
+}
+.preview-img {
+  max-width: 298px;
+  max-height: 198px;
+  
+}
+.button-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
