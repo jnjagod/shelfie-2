@@ -1,22 +1,38 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import './Form.css'
 import axios from 'axios'
 
-export default class Form extends Component {
-  constructor() {
-    super()
+class Form extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
-      id: null,
       name: '',
       price: 0,
-      img: ''
+      img: '',
+      edit: false
+    }
+  }
+
+  componentDidMount() {
+    let { id } = this.props.match.params
+    if (id) {
+      axios
+        .get(`/api/product/${id}`)
+        .then(res => {
+          this.setState({ ...res.data, edit: true })
+        })
+        .catch(err => console.log(err))
     }
   }
 
   componentDidUpdate(oldProps) {
-    let { id, name, price, img } = this.props.product
-    if (oldProps.product.id !== this.props.product.id) {
-      this.setState({ id, name, price, img })
+    if (this.props.match.path !== oldProps.match.path) {
+      this.setState({
+        name: '',
+        price: 0,
+        img: ''
+      })
     }
   }
 
@@ -24,7 +40,7 @@ export default class Form extends Component {
     const { name, price, img } = this.state
     axios
       .post('/api/product', { name, price, img })
-      .then(res => this.props.getInventory())
+      .then(res => this.props.history.push('/'))
       .catch(err => console.log(err))
   }
 
@@ -36,12 +52,16 @@ export default class Form extends Component {
   }
 
   clearFields = () => {
-    this.setState({
-      id: null,
-      name: '',
-      price: 0,
-      img: ''
-    })
+    if (this.props.match.params.id) {
+      this.props.history.push('/')
+    } else {
+      this.setState({
+        name: '',
+        price: 0,
+        img: '',
+        edit: false
+      })
+    }
   }
 
   handleEdit() {
@@ -49,7 +69,7 @@ export default class Form extends Component {
     let product = { name, price, img }
     axios
       .put(`/api/product/${id}`, product)
-      .then(res => this.props.getInventory())
+      .then(res => this.propshistory.push('/'))
       .catch(err => console.log(err))
   }
 
@@ -72,7 +92,7 @@ export default class Form extends Component {
           <input name='price' value={this.state.price} autoComplete='off' onChange={this.handleChange} type="number" />
           <div className="button-box">
             <button onClick={this.clearFields} className='red-button'>Cancel</button>
-            {this.state.id ?
+            {this.state.edit ?
               <button
                 className='red-button'
                 onClick={() => { this.handleEdit(); this.clearFields() }}
@@ -89,3 +109,5 @@ export default class Form extends Component {
     )
   }
 }
+
+export default withRouter(Form)

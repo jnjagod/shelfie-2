@@ -20,7 +20,13 @@ module.exports = {
     const db = req.app.get('db')
     const { id } = req.params
     const { name, price, img } = req.body
-    const product = await db.update_product({id, name, price, img})
+    const product = await db.update_product({ id, name, price, img })
+    res.status(200).send(product)
+  },
+  getProduct: async (req, res) => {
+    const db = req.app.get('db')
+    const { id } = req.params
+    const product = await db.get_product(id)
     res.status(200).send(product)
   }
 }

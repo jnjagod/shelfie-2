@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import './Product.css'
 
-export default class Product extends Component {
+class Product extends Component {
   render() {
     const { id, name, price, img } = this.props.product
     return (
@@ -14,7 +15,7 @@ export default class Product extends Component {
             </div>
             <div className="sub-button-box">
               <button onClick={() => this.props.deleteProduct(id)} className='green-button delet'>Delete</button>
-              <button onClick={() => this.props.selectProduct(this.props.product)} className='green-button edit'>Edit</button>
+              <button onClick={() => this.props.history.push(`/edit/${this.props.product.id}`)} className='green-button edit'>Edit</button>
             </div>
           </div>
         </div>
@@ -22,3 +23,5 @@ export default class Product extends Component {
     )
   }
 }
+
+export default withRouter(Product)
