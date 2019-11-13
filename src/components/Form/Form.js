@@ -19,9 +19,7 @@ class Form extends Component {
     if (id) {
       axios
         .get(`/api/product/${id}`)
-        .then(res => {
-          this.setState({ ...res.data, edit: true })
-        })
+        .then(res => {this.setState({ ...res.data[0], edit: true }); console.log(res.data)})
         .catch(err => console.log(err))
     }
   }
@@ -29,22 +27,25 @@ class Form extends Component {
   componentDidUpdate(oldProps) {
     if (this.props.match.path !== oldProps.match.path) {
       this.setState({
+        // id: null,
         name: '',
         price: 0,
-        img: ''
+        img: '',
+        edit: false
       })
     }
   }
 
   addProduct = () => {
-    const { name, price, img } = this.state
+    let { name, price, img } = this.state
+    let product = { name, price, img }
     axios
-      .post('/api/product', { name, price, img })
+      .post('/api/product', product)
       .then(res => this.props.history.push('/'))
       .catch(err => console.log(err))
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     let { name, value } = e.target
     this.setState({
       [name]: value
@@ -64,12 +65,12 @@ class Form extends Component {
     }
   }
 
-  handleEdit() {
+  handleEdit = () => {
     let { id, name, price, img } = this.state
     let product = { name, price, img }
     axios
       .put(`/api/product/${id}`, product)
-      .then(res => this.propshistory.push('/'))
+      .then(res => this.props.history.push('/'))
       .catch(err => console.log(err))
   }
 
